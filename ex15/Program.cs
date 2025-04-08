@@ -1,22 +1,28 @@
 ﻿//5- Menor Número Maior que X: Dado um array ordenado e um número X, encontre o menor número maior que X na lista
 
-static int MenorMaiorQueX(int[] array, int x)
-{
-    int resultado = -1;
-    int inicio = 0, fim = array.Length - 1;
+int[] dadosOrdenados = { 2, 4, 6, 8, 10, 12, 14 };
 
-    while (inicio <= fim)
+Console.Write("Digite o número que deseja inserir: ");
+int valorNovo = int.Parse(Console.ReadLine());
+
+int indiceInsercao = CalcularPosicaoInsercao(dadosOrdenados, valorNovo);
+
+Console.WriteLine("O número deve ser inserido na posição: " + indiceInsercao);
+
+static int CalcularPosicaoInsercao(int[] vetor, int elemento)
+{
+    int esquerda = 0;
+    int direita = vetor.Length;
+
+    while (esquerda < direita)
     {
-        int meio = (inicio + fim) / 2;
-        if (array[meio] > x)
-        {
-            resultado = array[meio];
-            fim = meio - 1;
-        }
+        int centro = (esquerda + direita) / 2;
+
+        if (vetor[centro] < elemento)
+            esquerda = centro + 1;
         else
-        {
-            inicio = meio + 1;
-        }
+            direita = centro;
     }
-    return resultado;
+
+    return esquerda;
 }
