@@ -1,12 +1,22 @@
 ﻿//7- Última Ocorrência: Modifique o algoritmo de busca sequencial para retornar a última ocorrência de um elemento no array
 
-static int BuscaUltimaOcorrencia(int[] array, int elemento)
+int[] n = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+int nprocurado = 3;
+
+int lugar = Buscar(n, nprocurado);
+
+if (lugar >= 0)
+    Console.WriteLine($"ultima ocorrência do valor {nprocurado} está no lugar {lugar}.");
+else
+    Console.WriteLine("valor não achado");
+
+static int Buscar(int[] array, int valor)
 {
-    int indice = -1;
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] == elemento)
-            indice = i;
-    }
-    return indice;
+    int ultimaPosicao = -1;
+
+    for (int indice = 0; indice < array.Length; indice++)
+        if (array[indice] == valor)
+            ultimaPosicao = indice;
+
+    return ultimaPosicao;
 }
