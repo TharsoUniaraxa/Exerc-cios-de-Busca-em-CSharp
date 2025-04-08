@@ -1,19 +1,29 @@
 ﻿//10- Palavra em Texto: Crie um programa que recebe um texto e busca uma palavra dentro dele, retornando a posição inicial da palavra se for encontrada
 
-static int BuscaPalavra(string texto, string palavra)
+static int buscarpalavra(string texto, string palavra)
 {
-    int posicao = -1;
-    string[] palavras = texto.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    int limite = texto.Length - palavra.Length;
 
-    int indexAcumulado = 0;
-    for (int i = 0; i < palavras.Length; i++)
-    {
-        if (palavras[i].Equals(palavra, StringComparison.CurrentCultureIgnoreCase))
-        {
-            posicao = indexAcumulado;
-            break;
-        }
-        indexAcumulado += palavras[i].Length + 1;
-    }
-    return posicao;
+    for (int i = 0; i <= limite; i++)
+        if (texto.Substring(i, palavra.Length) == palavra)
+            return i;
+
+    return -1;
+}
+
+Console.Write("escreva seu texto: ");
+string texto = Console.ReadLine();
+
+Console.Write("escreva a palavra que deseja achar: ");
+string palavra = Console.ReadLine();
+
+int posicao = buscarpalavra(texto, palavra);
+
+if (posicao >= 0)
+{
+    Console.WriteLine($"palavra {palavra} achada na posição {posicao}");
+}
+else
+{
+    Console.WriteLine("palavra não achada");
 }
