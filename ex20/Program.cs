@@ -1,29 +1,41 @@
 ﻿//10- Número mais Próximo: Modifique a busca binária para encontrar o número mais próximo de um valor X dentro de um array ordenado
 
-static int NumeroMaisProximo(int[] array, int x)
-{
-    if (x <= array[0])
-        return array[0];
-    if (x >= array[array.Length - 1])
-        return array[array.Length - 1];
+int[] valores = { 2, 4, 6, 8, 10, 12, 14 };
 
-    int inicio = 0, fim = array.Length - 1;
-    while (inicio <= fim)
+Console.Write("Digite o valor de X: ");
+int alvo = int.Parse(Console.ReadLine());
+
+int valorMaisProximo = EncontrarValorMaisProximo(valores, alvo);
+
+Console.WriteLine("Número mais próximo de X: " + valorMaisProximo);
+
+static int EncontrarValorMaisProximo(int[] arrayOrdenado, int referencia)
+{
+    int esquerda = 0;
+    int direita = arrayOrdenado.Length - 1;
+    int candidato = arrayOrdenado[0];
+
+    while (esquerda <= direita)
     {
-        int meio = (inicio + fim) / 2;
-        if (array[meio] == x)
-            return array[meio];
-        else if (array[meio] < x)
-            inicio = meio + 1;
+        int centro = (esquerda + direita) / 2;
+
+        if (arrayOrdenado[centro] == referencia)
+            return arrayOrdenado[centro];
+
+        int diferencaAtual = Math.Abs(arrayOrdenado[centro] - referencia);
+        int diferencaCandidato = Math.Abs(candidato - referencia);
+
+        if (diferencaAtual < diferencaCandidato ||
+            (diferencaAtual == diferencaCandidato && arrayOrdenado[centro] < candidato))
+        {
+            candidato = arrayOrdenado[centro];
+        }
+
+        if (arrayOrdenado[centro] < referencia)
+            esquerda = centro + 1;
         else
-            fim = meio - 1;
+            direita = centro - 1;
     }
 
-    if (inicio >= array.Length)
-        return array[fim];
-
-    int diff1 = Math.Abs(array[inicio] - x);
-    int diff2 = Math.Abs(x - array[fim]);
-
-    return diff1 < diff2 ? array[inicio] : array[fim];
+    return candidato;
 }
