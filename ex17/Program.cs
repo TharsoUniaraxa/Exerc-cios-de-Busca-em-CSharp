@@ -1,20 +1,34 @@
 ﻿//7- Palavras Ordenadas: Aplique busca binária para procurar palavras dentro de um dicionário ordenado
 
-static int BuscaBinariaString(string[] palavras, string palavra)
+string[] palavrasOrdenadas = { "abacate", "banana", "cachorro", "dado", "elefante", "foca", "gato" };
+
+Console.Write("Digite a palavra que deseja procurar: ");
+string termo = Console.ReadLine();
+
+bool encontrada = VerificarExistenciaPalavra(palavrasOrdenadas, termo);
+
+if (encontrada)
+    Console.WriteLine("A palavra existe no dicionário.");
+else
+    Console.WriteLine("A palavra NÃO existe no dicionário.");
+
+static bool VerificarExistenciaPalavra(string[] colecao, string termoBuscado)
 {
-    int inicio = 0, fim = palavras.Length - 1;
+    int esquerda = 0;
+    int direita = colecao.Length - 1;
 
-    while (inicio <= fim)
+    while (esquerda <= direita)
     {
-        int meio = (inicio + fim) / 2;
-        int comparacao = string.Compare(palavras[meio], palavra, StringComparison.CurrentCultureIgnoreCase);
+        int centro = (esquerda + direita) / 2;
+        int resultadoComparacao = string.Compare(colecao[centro], termoBuscado, StringComparison.OrdinalIgnoreCase);
 
-        if (comparacao == 0)
-            return meio;
-        if (comparacao < 0)
-            inicio = meio + 1;
+        if (resultadoComparacao == 0)
+            return true;
+        else if (resultadoComparacao < 0)
+            esquerda = centro + 1;
         else
-            fim = meio - 1;
+            direita = centro - 1;
     }
-    return -1;
+
+    return false;
 }
