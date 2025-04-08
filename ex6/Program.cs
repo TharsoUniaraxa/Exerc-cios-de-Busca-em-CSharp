@@ -1,23 +1,37 @@
-﻿//6- Busca em Lista de Objetos: Dado um array de objetos representando alunos (Nome e Matrícula), implemente uma função
-que retorne o aluno correspondente a uma matrícula específica
+﻿//6- Busca em Lista de Objetos: Dado um array de objetos representando alunos (Nome e Matrícula), implemente uma função que retorne o aluno correspondente a uma matrícula específica
 
-class Aluno
+class Program
 {
-    public string Nome { get; set; }
-    public int Matricula { get; set; }
-
-    public override string ToString()
+    static void Main(string[] args)
     {
-        return $"Nome: {Nome}, Matrícula: {Matricula}";
+        Aluno[] alunos = new Aluno[]
+        {
+            new Aluno { nome = "João", matricula = "123" },
+            new Aluno { nome = "Maria", matricula = "456" },
+            new Aluno { nome = "José", matricula = "789" }
+        };
+
+        string matriculaachada = "456";
+        Aluno alunoachado = buscaralunom(alunos, matriculaachada);
+
+        if (alunoachado is not null)
+            Console.WriteLine($"aluno achado: {alunoachado.nome}, Matrícula: {alunoachado.matricula}");
+        else
+            Console.WriteLine("aluno não achado.");
+    }
+
+    static Aluno buscaralunom(Aluno[] alunos, string matricula)
+    {
+        for (int i = 0; i < alunos.Length; i++)
+            if (alunos[i].matricula == matricula)
+                return alunos[i];
+
+        return null;
     }
 }
 
-static Aluno BuscaAluno(Aluno[] alunos, int matricula)
+class Aluno
 {
-    foreach (Aluno aluno in alunos)
-    {
-        if (aluno.Matricula == matricula)
-            return aluno;
-    }
-    return null;
+    public string nome;
+    public string matricula;
 }
